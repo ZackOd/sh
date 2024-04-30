@@ -24,3 +24,12 @@ apt-get install vnstat jq -y
 echo "完成安装 vnstat"
 systemctl enable vnstat
 echo "设置开机启动 vnstat"
+
+# 安装 SB
+bash <(curl -Ls https://gitlab.com/rwkgyg/sing-box-yg/raw/main/sb.sh)
+echo "下载SB 一键成功"
+
+# 安装 加速
+wget -O tcpx.sh "https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
+echo "下载BBR 一键成功"
+
