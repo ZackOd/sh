@@ -51,7 +51,7 @@ smb_menu() {
         echo "1 SMB安装并开机启动"
         echo "2 SMB配置(共享 /X 全权限)"
         echo "3 SMB服务状态查询"
-        echo "4 重启 SMB"       
+        echo "4 重启 SMB"
         echo "5 删除配置并关闭启动"
         echo "6 返回"
         read -p "选择: " c
@@ -90,7 +90,7 @@ EOF
             4)
                 systemctl restart smbd
                 log "SMB 服务已重启"
-                ;;                
+                ;;
             5)
                 rm -f /etc/samba/smb.conf
                 systemctl disable smbd
@@ -177,6 +177,7 @@ go_menu() {
 
         case $c in
             1)
+                apt update
                 apt install -y golang
                 log "GO 已安装"
                 ;;
@@ -200,7 +201,7 @@ service_menu() {
 
         case $c in
             1)
-			cat << 'EOF' > /etc/systemd/system/xxx.service
+cat << 'EOF' > /etc/systemd/system/xxx.service
 [Unit]
 Description=Docker Cluster Management System
 After=network.target
@@ -227,31 +228,16 @@ EOF
                 log "查询 xxx 状态"
                 ;;
             4)
-			cat << 'EOF' > /etc/systemd/system/xxx.service
-[Unit]
-Description=Docker Cluster Management System
-After=network.target
-
-[Service]
-WorkingDirectory=/X
-ExecStart=/X/xxx
-Restart=always
-RestartSec=3
-
-[Install]
-WantedBy=multi-user.target
-EOF
-                systemctl daemon-reload
-                systemctl enable xxx
-                log "xxx.service 已写入，设置开机启动"
                 mkdir -p /X
-				# 1. 自动检测并安装 Go
-                if ! command -v go >/dev/null 2>&1; then
-                    log "未检测到 Go 环境，正在自动安装..."
-                    apt update
-                    apt install -y golang
-                fi
-                cat > /X/xxx.go <<EOF
+
+                # 自动检测并安装 Go
+                if ! command -v go >/dev/null 2>&1; then
+                    log "未检测到 Go 环境，正在自动安装..."
+                    apt update
+                    apt install -y golang
+                fi
+
+                cat > /X/xxx.go <<'EOF'
 package main
 
 import (
@@ -270,19 +256,23 @@ func main() {
 }
 EOF
                 log "xxx.go创建完成"
-# 2. 【关键修复】进入 /X 目录后再执行编译指令
-                cd /X || exit
+
+                # 进入 /X 目录执行编译
+                cd /X || exit
+
                 go mod init app
                 go get github.com/gin-gonic/gin
                 go mod tidy
                 log "系统初始化完成"
                 go build -o xxx xxx.go
                 chmod +x xxx
-                log "系统初始化完成"
+                log "系统编译完成"
+                
                 mkdir -p /X/backup
-                log "/X/back_up创建完成"
+                log "/X/backup创建完成"
                 chmod -R 777 /X/backup
-                log "/X/back_up给予777权限"
+                log "/X/backup给予777权限"
+                
                 cat > /X/backup/backup.go <<'EOF'
 package backup
 
@@ -505,7 +495,7 @@ func restoreHandler(c *gin.Context) {
 		}
 	}
 
-	// 别忘了将这里的 "xxx" 改为你真实的服务名称
+	// 重启服务
 	cmd := exec.Command("systemctl", "restart", "xxx")
 	cmd.Run()
 
@@ -557,7 +547,7 @@ func clearHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
-// ======================== HTML/CSS/JS 维持原样即可 ========================
+// ======================== HTML/CSS/JS ========================
 const htmlContent = `
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -825,11 +815,13 @@ const htmlContent = `
 `
 EOF
                 log "/X/backup/backup.go创建完成"
-				# 因为前面 cd /X 了，如果你后续菜单还要做别的事，建议退回原目录
-                cd - > /dev/null
+                
+                # 返回原始目录
+                cd - > /dev/null
+
                 systemctl restart xxx
                 log "超级备份系统已启动: http://$(hostname -I | awk '{print $1}')/back_up"
-				;;
+                ;;
             5) break ;;
         esac
         pause
