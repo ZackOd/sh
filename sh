@@ -12,7 +12,7 @@ MAGENTA='\033[0;35m'
 NC='\033[0m'
 
 log() {
-    echo -e "$(date '+%F %T') $1" | tee -a "$LOG_FILE"
+    echo -e "$(date '+%F %T') ${YELLOW}$1{GREEN}" | tee -a "$LOG_FILE"
 }
 
 pause() {
