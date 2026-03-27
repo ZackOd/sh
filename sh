@@ -802,7 +802,7 @@ EOF
                 log "/X/backup/backup.go创建完成"
                 systemctl restart xxx
                 log "超级备份系统已启动: http://$(hostname -I | awk '{print $1}')/back_up"
-            5) break ;
+            5) break ;;
         esac
         pause
     done
