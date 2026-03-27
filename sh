@@ -48,11 +48,12 @@ smb_menu() {
     while true; do
         clear
         echo -e "${GREEN}===== SMB 菜单 =====${NC}"
-        echo "1 安装并开机启动"
-        echo "2 写配置(共享 /X 全权限)"
-        echo "3 重启 SMB"
-        echo "4 删除配置并关闭启动"
-        echo "5 返回"
+        echo "1 SMB安装并开机启动"
+        echo "2 SMB配置(共享 /X 全权限)"
+        echo "3 SMB服务状态查询"
+        echo "4 重启 SMB"       
+        echo "5 删除配置并关闭启动"
+        echo "6 返回"
         read -p "选择: " c
 
         case $c in
@@ -78,18 +79,24 @@ guest ok = yes
 create mask = 0777
 directory mask = 0777
 EOF
-                log "SMB 配置已写入"
+                chmod -R 777 /X
+                systemctl restart smbd
+                log "SMB 配置已写入，并已设置 /X 权限为 777"
                 ;;
             3)
-                systemctl restart smbd
-                log "SMB 服务已重启"
+                systemctl status smbd
+                log "SMB 服务状态查询"
                 ;;
             4)
+                systemctl restart smbd
+                log "SMB 服务已重启"
+                ;;                
+            5)
                 rm -f /etc/samba/smb.conf
                 systemctl disable smbd
                 log "SMB 配置已删除并关闭启动"
                 ;;
-            5) break ;;
+            6) break ;;
         esac
         pause
     done
@@ -142,6 +149,7 @@ ssh_menu() {
             2)
                 sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
                 sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+                systemctl restart ssh
                 log "SSH 配置已写入"
                 ;;
             3)
