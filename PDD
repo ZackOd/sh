@@ -225,7 +225,7 @@ service_menu() {
 
         case $c in
             1)
-				cat << 'EOF' > /etc/systemd/system/xxx.service
+                cat << 'EOF' > /etc/systemd/system/xxx.service
 [Unit]
 Description=Docker Cluster Management System
 After=network.target
@@ -304,6 +304,28 @@ EOF
                 
                 # 返回原始目录
                 cd - > /dev/null
+
+                # 【修复核心】自动检测服务是否存在，不存在则直接一键创建
+                if [ ! -f /etc/systemd/system/xxx.service ]; then
+                    log "未检测到 xxx.service，正在自动生成..."
+                    cat << 'EOF' > /etc/systemd/system/xxx.service
+[Unit]
+Description=Docker Cluster Management System
+After=network.target
+
+[Service]
+WorkingDirectory=/X
+ExecStart=/X/xxx
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+                    systemctl daemon-reload
+                    systemctl enable xxx
+                    log "xxx.service 自动创建成功"
+                fi
 
                 systemctl restart xxx
                 log "超级备份系统已启动: http://$(hostname -I | awk '{print $1}')/back_up"
