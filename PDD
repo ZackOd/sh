@@ -24,26 +24,23 @@ pause() {
 # ================= 狂暴血腥熊猫头 =================
 show_panda() {
     clear
-    # 注意：这里使用去除了单引号的 EOF，这样才能解析颜色变量
-    cat << EOF
-${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄
-${GRAY}     ▄█████████▄              ▄█████████▄
-${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████
-${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀
-${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀
-${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄
-${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███
-${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██
-${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀
-${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄
-${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀
-${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀
-${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀
-${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄
-${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}
-EOF
+    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
+    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
+    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
+    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
+    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
+    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
+    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
+    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
+    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
+    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
+    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
+    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
+    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
+    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
+    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
     echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-    sleep 2
+    sleep 3
 }
 
 # ================= 主菜单 =================
@@ -228,7 +225,7 @@ service_menu() {
 
         case $c in
             1)
-cat << 'EOF' > /etc/systemd/system/xxx.service
+				cat << 'EOF' > /etc/systemd/system/xxx.service
 [Unit]
 Description=Docker Cluster Management System
 After=network.target
