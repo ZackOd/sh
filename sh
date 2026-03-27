@@ -246,7 +246,7 @@ EOF
                 log "xxx.service 已写入，设置开机启动"
                 mkdir -p /X
 				# 1. 自动检测并安装 Go
-                if ! command -v go &> /dev/null2>&1; then
+                if ! command -v go >/dev/null 2>&1; then
                     log "未检测到 Go 环境，正在自动安装..."
                     apt update
                     apt install -y golang
