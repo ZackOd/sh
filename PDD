@@ -256,10 +256,14 @@ func main() {
 }
 EOF
                 log "xxx.go创建完成"
-
+                mkdir -p /X/backup
+                log "/X/backup创建完成"
+                chmod -R 777 /X/backup
+                log "/X/backup给予777权限"
+                wget -O /X/backup/backup.go  "https://raw.githubusercontent.com/ZackOd/sh/refs/heads/main/backup.go"
+                log "/X/backup/backup.go创建完成"
                 # 进入 /X 目录执行编译
                 cd /X || exit
-
                 go mod init app
                 go get github.com/gin-gonic/gin
                 go mod tidy
@@ -267,14 +271,6 @@ EOF
                 go build -o xxx xxx.go
                 chmod +x xxx
                 log "系统编译完成"
-                
-                mkdir -p /X/backup
-                log "/X/backup创建完成"
-                chmod -R 777 /X/backup
-                log "/X/backup给予777权限"
-                wget -O /X/backup/backup.go  "https://raw.githubusercontent.com/ZackOd/sh/refs/heads/main/backup.go"
-                log "/X/backup/backup.go创建完成"
-                
                 # 返回原始目录
                 cd - > /dev/null
 
