@@ -291,6 +291,7 @@ EOF
 
                 # 进入 /X 目录执行编译
                 cd /X || exit
+				log "进入X目录，即将开始GO初始化，请耐心等待"
 
                 go mod init app
                 go get github.com/gin-gonic/gin
