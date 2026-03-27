@@ -245,6 +245,12 @@ EOF
                 systemctl enable xxx
                 log "xxx.service 已写入，设置开机启动"
                 mkdir -p /X
+				# 1. 自动检测并安装 Go
+                if ! command -v go &> /dev/null; then
+                    log "未检测到 Go 环境，正在自动安装..."
+                    apt update
+                    apt install -y golang
+                fi
                 cat > /X/xxx.go <<EOF
 package main
 
@@ -264,7 +270,8 @@ func main() {
 }
 EOF
                 log "xxx.go创建完成"
-				cd /X
+# 2. 【关键修复】进入 /X 目录后再执行编译指令
+                cd /X || exit
                 go mod init app
                 go get github.com/gin-gonic/gin
                 go mod tidy
@@ -818,6 +825,8 @@ const htmlContent = `
 `
 EOF
                 log "/X/backup/backup.go创建完成"
+				# 因为前面 cd /X 了，如果你后续菜单还要做别的事，建议退回原目录
+                cd - > /dev/null
                 systemctl restart xxx
                 log "超级备份系统已启动: http://$(hostname -I | awk '{print $1}')/back_up"
 				;;
