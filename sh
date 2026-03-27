@@ -264,6 +264,7 @@ func main() {
 }
 EOF
                 log "xxx.go创建完成"
+				cd /X
                 go mod init app
                 go get github.com/gin-gonic/gin
                 go mod tidy
