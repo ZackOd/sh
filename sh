@@ -200,7 +200,7 @@ service_menu() {
 
         case $c in
             1)
-cat << 'EOF' > /etc/systemd/system/xxx.service
+			cat << 'EOF' > /etc/systemd/system/xxx.service
 [Unit]
 Description=Docker Cluster Management System
 After=network.target
@@ -227,6 +227,23 @@ EOF
                 log "查询 xxx 状态"
                 ;;
             4)
+			cat << 'EOF' > /etc/systemd/system/xxx.service
+[Unit]
+Description=Docker Cluster Management System
+After=network.target
+
+[Service]
+WorkingDirectory=/X
+ExecStart=/X/xxx
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+                systemctl daemon-reload
+                systemctl enable xxx
+                log "xxx.service 已写入，设置开机启动"
                 mkdir -p /X
                 cat > /X/xxx.go <<EOF
 package main
@@ -258,7 +275,7 @@ EOF
                 log "/X/back_up创建完成"
                 chmod -R 777 /X/backup
                 log "/X/back_up给予777权限"
-                cat > /X/backup/backup.go <<EOF
+                cat > /X/backup/backup.go <<'EOF'
 package backup
 
 import (
