@@ -21,49 +21,36 @@ pause() {
     read -p "按回车继续..."
 }
 
-# ================= 狂暴血腥熊猫头 =================
-show_panda() {
+# ================= 全局狂暴顶部组件 =================
+print_header() {
+    local menu_title="$1"
     clear
-    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
+    echo -e "${GRAY}      ▄▄▄▄▄▄▄▄                 ▄▄▄▄▄▄▄▄"
+    echo -e "${GRAY}    ▄██████████▄             ▄██████████▄"
+    echo -e "${GRAY}  ▄██████████████▄${WHITE}▄▄▄▄▄▄▄▄▄${GRAY}▄██████████████▄"
+    echo -e "${GRAY}  ████████████████${WHITE}▀▀▀▀▀▀▀▀▀${GRAY}████████████████"
+    echo -e "${GRAY}  ▀██████████████▀${WHITE}         ▀██████████████▀"
+    echo -e "${WHITE}    ▀▀████████▀▀   ▄██████▄   ▀▀████████▀▀"
+    echo -e "${WHITE}       ██████▀${RED} ▄▄${WHITE} ▀████████▀ ${RED}▄▄${WHITE} ▀██████"
+    echo -e "${WHITE}     ▄███████ ${RED}▄██▄${WHITE}  ▀████▀  ${RED}▄██▄${WHITE} ███████▄"
+    echo -e "${WHITE}    █████████ ${RED}████▄${WHITE}        ${RED}▄████${WHITE} █████████"
+    echo -e "${WHITE}    █████████  ${RED}▀▀▀${WHITE}  ▄████▄  ${RED}▀▀▀${WHITE}  █████████"
+    echo -e "${WHITE}    ██████████▄   ▄████████▄   ▄██████████"
+    echo -e "${RED} ▄▄${WHITE} ▀████████████████████████████████████▀ ${RED}▄▄"
+    echo -e "${RED}▀██▄${WHITE}  ▀████████████████████████████████▀  ${RED}▄██▀"
+    echo -e "${CYAN} ▀███▄${WHITE}  ▀▀██████${RED}▄▄ ▀▀████▀▀ ▄▄${WHITE}██████▀▀  ${CYAN}▄███▀"
+    echo -e "${CYAN}  ▀████▄${WHITE}    ▀▀██${RED}██▄ ▀▀██▀▀ ▄████${WHITE}▀▀    ${CYAN}▄████▀"
+    echo -e "${CYAN}   ▀██████▄▄${WHITE}   ${RED}▀███▄ ▀▀▀ ▄███▀${WHITE}   ${CYAN}▄▄██████▀"
+    echo -e "${CYAN} ▄▄▄█████████▄▄${RED}  ▀███▄ ▄███▀  ${CYAN}▄▄█████████▄▄"
+    echo -e "${CYAN} ████████████████▄▄${RED} ▀▀█▀▀ ${CYAN}▄▄████████████████${NC}"
     echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-    sleep 3
+    echo -e "${menu_title}"
 }
 
 # ================= 主菜单 =================
 main_menu() {
     while true; do
-        clear
-	    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-	    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-	    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-	    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-	    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-	    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-	    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-	    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-	    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-	    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-	    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-	    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-	    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-	    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-	    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
-	    echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-	    echo -e "${CYAN}===== 主菜单 =====${NC}"
+        print_header "${CYAN}===== 主菜单 =====${NC}"
         echo -e "${GREEN}1 SMB${NC}"
         echo -e "${YELLOW}2 Docker${NC}"
         echo -e "${BLUE}3 SSH${NC}"
@@ -78,7 +65,7 @@ main_menu() {
             3) ssh_menu ;;
             4) go_menu ;;
             5) service_menu ;;
-            6) exit 0 ;;
+            6) clear; exit 0 ;;
         esac
     done
 }
@@ -86,24 +73,7 @@ main_menu() {
 # ================= SMB (绿色) =================
 smb_menu() {
     while true; do
-        clear
-	    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-	    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-	    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-	    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-	    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-	    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-	    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-	    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-	    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-	    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-	    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-	    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-	    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-	    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-	    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
-	    echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-	    echo -e "${GREEN}===== SMB 菜单 =====${NC}"
+        print_header "${GREEN}===== SMB 菜单 =====${NC}"
         echo -e "${GREEN}1 SMB安装并开机启动${NC}"
         echo -e "${GREEN}2 SMB配置(共享 /X 全权限)${NC}"
         echo -e "${GREEN}3 SMB服务状态查询${NC}"
@@ -161,24 +131,7 @@ EOF
 # ================= Docker (黄色) =================
 docker_menu() {
     while true; do
-        clear
-	    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-	    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-	    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-	    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-	    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-	    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-	    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-	    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-	    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-	    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-	    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-	    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-	    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-	    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-	    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
-	    echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-        echo -e "${YELLOW}===== Docker 菜单 =====${NC}"
+        print_header "${YELLOW}===== Docker 菜单 =====${NC}"
         echo -e "${YELLOW}1 安装 Docker${NC}"
         echo -e "${YELLOW}2 重启 Docker${NC}"
         echo -e "${RED}3 返回${NC}"
@@ -203,24 +156,7 @@ docker_menu() {
 # ================= SSH (蓝色) =================
 ssh_menu() {
     while true; do
-        clear
-	    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-	    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-	    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-	    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-	    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-	    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-	    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-	    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-	    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-	    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-	    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-	    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-	    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-	    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-	    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
-	    echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-        echo -e "${BLUE}===== SSH 菜单 =====${NC}"
+        print_header "${BLUE}===== SSH 菜单 =====${NC}"
         echo -e "${BLUE}1 安装并启用 SSH${NC}"
         echo -e "${BLUE}2 强制写入配置${NC}"
         echo -e "${BLUE}3 查询状态${NC}"
@@ -257,24 +193,7 @@ ssh_menu() {
 # ================= GO (紫色) =================
 go_menu() {
     while true; do
-        clear
-	    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-	    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-	    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-	    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-	    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-	    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-	    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-	    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-	    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-	    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-	    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-	    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-	    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-	    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-	    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
-	    echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-        echo -e "${MAGENTA}===== GO 菜单 =====${NC}"
+        print_header "${MAGENTA}===== GO 菜单 =====${NC}"
         echo -e "${MAGENTA}1 安装 GO${NC}"
         echo -e "${RED}2 返回${NC}"
         read -p "选择: " c
@@ -294,24 +213,7 @@ go_menu() {
 # ================= 服务项 (青色) =================
 service_menu() {
     while true; do
-        clear
-	    echo -e "${GRAY}       ▄▄▄▄▄▄▄                  ▄▄▄▄▄▄▄"
-	    echo -e "${GRAY}     ▄█████████▄              ▄█████████▄"
-	    echo -e "${GRAY}    █████████████▄${WHITE}▀▀▀▀▀▀▀▀▀▀${GRAY}▄█████████████"
-	    echo -e "${GRAY}    ▀███████████▀${WHITE}            ▀███████████▀"
-	    echo -e "${GRAY}      ▀▀█████▀▀${WHITE}    ▄▄▄  ▄▄▄    ▀▀█████▀▀"
-	    echo -e "${WHITE}        ▄██▀${RED} ▄▄▄${WHITE}   ▀██▄▄██▀   ${RED}▄▄▄${WHITE} ▀██▄"
-	    echo -e "${WHITE}       ███ ${RED}▄█████▄${WHITE}  ▀████▀  ${RED}▄█████▄${WHITE} ███"
-	    echo -e "${WHITE}       ██▄ ${RED}▀██████${WHITE}          ${RED}██████▀${WHITE} ▄██"
-	    echo -e "${WHITE}       ▀██▄  ${RED}▀▀▀▀${WHITE}   ▄▄▄▄▄▄   ${RED}▀▀▀▀${WHITE}  ▄██▀"
-	    echo -e "${RED} ▄▄${WHITE}      ██▄      ▄████████▄      ▄██      ${RED}▄▄"
-	    echo -e "${RED}▀███▄${WHITE}     ▀█████████${RED}▀▀▀▀▀▀${WHITE}█████████▀     ${RED}▄███▀"
-	    echo -e "${CYAN} ▀████▄${WHITE}      ▀█████${RED}▄██████▄${WHITE}█████▀      ${CYAN}▄████▀"
-	    echo -e "${CYAN}  ▀██████▄▄${WHITE}     ▀██${RED}▀██████▀${WHITE}██▀     ${CYAN}▄▄██████▀"
-	    echo -e "${CYAN} ▄▄▄█████████▄▄${WHITE}    ▀▀${RED}████${WHITE}▀▀    ${CYAN}▄▄█████████▄▄"
-	    echo -e "${CYAN} ████████████████▄▄${RED}  ▀▀  ${CYAN}▄▄████████████████${NC}"
-	    echo -e "${RED}      >>> WARNING: BLOODTHIRSTY OVERRIDE <<<${NC}"
-        echo -e "${CYAN}===== 服务菜单 =====${NC}"
+        print_header "${CYAN}===== 服务菜单 =====${NC}"
         echo -e "${CYAN}1 创建xxx.service${NC}"
         echo -e "${CYAN}2 启动xxx服务${NC}"
         echo -e "${CYAN}3 查询状态${NC}"
@@ -387,7 +289,7 @@ EOF
 
                 # 进入 /X 目录执行编译
                 cd /X || exit
-				log "进入X目录，即将开始GO初始化，请耐心等待"
+                log "进入X目录，即将开始GO初始化，请耐心等待"
 
                 go mod init app
                 go get github.com/gin-gonic/gin
@@ -431,5 +333,5 @@ EOF
 }
 
 # 启动
-show_panda
+# (主菜单开头会自动调用 print_header 并附带标题)
 main_menu
