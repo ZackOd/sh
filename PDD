@@ -100,10 +100,11 @@ smb_menu() {
         print_header "${GREEN}===== SMB 菜单 =====${NC}"
         echo -e "${GREEN}1 SMB安装并开机启动${NC}"
         echo -e "${GREEN}2 SMB配置(共享 /X 全权限)${NC}"
-        echo -e "${GREEN}3 SMB服务状态查询${NC}"
-        echo -e "${GREEN}4 重启 SMB${NC}"
-        echo -e "${GREEN}5 删除配置并关闭启动${NC}"
-        echo -e "${RED}6 返回${NC}"
+        echo -e "${GREEN}3 自定义共享目录${NC}"
+        echo -e "${GREEN}4 SMB服务状态查询${NC}"
+        echo -e "${GREEN}5 重启 SMB${NC}"
+        echo -e "${GREEN}6 删除配置并关闭启动${NC}"
+        echo -e "${RED}7 取消/返回${NC}"
         read -p "选择: " c
 
         case $c in
@@ -113,6 +114,7 @@ smb_menu() {
                 systemctl enable smbd
                 log "SMB 已安装并设置开机启动"
                 ;;
+
             2)
                 mkdir -p /X
                 cat > /etc/samba/smb.conf <<'EOF'
@@ -133,20 +135,76 @@ EOF
                 systemctl restart smbd
                 log "SMB 配置已写入，并已设置 /X 权限为 777"
                 ;;
+
             3)
+                read -p "请输入绝对路径 (如 /data/share): " custom_path
+
+                # 判空
+                if [ -z "$custom_path" ]; then
+                    log "路径不能为空"
+                    continue
+                fi
+
+                # 必须是绝对路径
+                if [[ "$custom_path" != /* ]]; then
+                    log "必须输入绝对路径"
+                    continue
+                fi
+
+                # 创建目录
+                mkdir -p "$custom_path"
+
+                # 如果 smb.conf 不存在 → 初始化
+                if [ ! -f /etc/samba/smb.conf ]; then
+                    cat > /etc/samba/smb.conf <<'EOF'
+[global]
+workgroup = WORKGROUP
+security = user
+map to guest = Bad User
+EOF
+                fi
+
+                # 生成共享名（取目录名）
+                share_name=$(basename "$custom_path")
+
+                # 追加配置
+                cat >> /etc/samba/smb.conf <<EOF
+
+[$share_name]
+path = $custom_path
+browseable = yes
+read only = no
+guest ok = yes
+create mask = 0777
+directory mask = 0777
+EOF
+
+                chmod -R 777 "$custom_path"
+                systemctl restart smbd
+
+                log "已共享目录: $custom_path (名称: $share_name)"
+                ;;
+
+            4)
                 systemctl status smbd
                 log "SMB 服务状态查询"
                 ;;
-            4)
+
+            5)
                 systemctl restart smbd
                 log "SMB 服务已重启"
                 ;;
-            5)
+
+            6)
                 rm -f /etc/samba/smb.conf
                 systemctl disable smbd
                 log "SMB 配置已删除并关闭启动"
                 ;;
-            6) break ;;
+
+            7)
+                log "已取消"
+                break
+                ;;
         esac
         pause
     done
