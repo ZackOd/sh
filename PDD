@@ -286,6 +286,10 @@ docker_menu() {
                 fi
                 ;;
             6)
+                echo "返回上一级..."
+                break   # ✅ 只退出当前 while
+                ;;
+            7)
                 echo "退出脚本..."
                 exit 0
                 ;;
