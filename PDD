@@ -252,10 +252,42 @@ docker_menu() {
                 rm -f get-docker.sh
                 log "get-docker.sh 已删除"
                 ;;
-            6)
-                break
+
+5)
+ 			    echo "⚠️ 即将彻底卸载 Docker（包含数据/镜像/配置/依赖）"
+     			read -p "确认执行? (y/n): " confirm
+ 			    if [[ $confirm == "y" ]]; then
+                    # 停止 Docker
+                    systemctl stop docker 2>/dev/null
+                    systemctl stop containerd 2>/dev/null
+
+                    # 卸载 Docker 相关包（兼容 Debian/Ubuntu）
+                    apt-get remove -y docker docker-engine docker.io containerd runc 2>/dev/null
+                    apt-get purge -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 2>/dev/null
+            
+                    # 自动清理依赖
+                    apt-get autoremove -y
+
+                    # 删除数据目录
+                    rm -rf /var/lib/docker
+                    rm -rf /var/lib/containerd
+
+                    # 删除配置文件
+                    rm -rf /etc/docker
+
+                    # 删除 systemd 残留
+                    rm -f /etc/systemd/system/docker.service
+                    rm -f /etc/systemd/system/docker.socket
+
+                    # 删除安装脚本
+                    rm -f get-docker.sh
+
+                    log "Docker 已彻底卸载（含残留）"
+                else
+                    log "已取消"
+                fi
                 ;;
-            0)
+            6)
                 echo "退出脚本..."
                 exit 0
                 ;;
