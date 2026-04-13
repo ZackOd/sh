@@ -219,7 +219,7 @@ docker_menu() {
         echo -e "${YELLOW}2 重启 Docker${NC}"
         echo -e "${YELLOW}3 删除所有镜像+缓存+残留${NC}"
         echo -e "${YELLOW}4 查询 Docker 状态${NC}"
-        echo -e "${YELLOW}5 删除安装脚本 get-docker.sh${NC}"
+        echo -e "${YELLOW}5 卸载Docker 清理所有残留${NC}"
         echo -e "${RED}6 返回${NC}"
         echo -e "${RED}0 退出脚本${NC}"
         read -p "选择: " c
