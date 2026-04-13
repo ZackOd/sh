@@ -203,8 +203,11 @@ EOF
                 ;;
 
             7)
-                log "已取消"
-                break
+                echo "退出脚本..."
+                exit 0
+                ;;
+            *)
+                echo "无效选项"
                 ;;
         esac
         pause
@@ -325,7 +328,13 @@ ssh_menu() {
                 systemctl restart ssh
                 log "SSH 已重启"
                 ;;
-            5) break ;;
+            5)
+                echo "退出脚本..."
+                exit 0
+                ;;
+            *)
+                echo "无效选项"
+                ;;
         esac
         pause
     done
@@ -467,7 +476,13 @@ EOF
 
                 log "超级备份系统已启动: http://$(hostname -I | awk '{print $1}')/back_up"
                 ;;
-            5) break ;;
+            5)
+                echo "退出脚本..."
+                exit 0
+                ;;
+            *)
+                echo "无效选项"
+                ;;
         esac
         pause
     done
