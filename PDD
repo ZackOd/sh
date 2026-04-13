@@ -104,7 +104,8 @@ smb_menu() {
         echo -e "${GREEN}4 SMB服务状态查询${NC}"
         echo -e "${GREEN}5 重启 SMB${NC}"
         echo -e "${GREEN}6 删除配置并关闭启动${NC}"
-        echo -e "${RED}7 取消/返回${NC}"
+        echo -e "${RED}7 返回${NC}"
+        echo -e "${RED}0 退出${NC}"
         read -p "选择: " c
 
         case $c in
@@ -203,6 +204,11 @@ EOF
                 ;;
 
             7)
+                echo "返回上一级..."
+                break   # 👈 新增：返回菜单
+                ;;
+
+            0)
                 echo "退出脚本..."
                 exit 0
                 ;;
@@ -224,7 +230,7 @@ docker_menu() {
         echo -e "${YELLOW}4 查询 Docker 状态${NC}"
         echo -e "${YELLOW}5 卸载Docker 清理所有残留${NC}"
         echo -e "${RED}6 返回${NC}"
-        echo -e "${RED}0 退出脚本${NC}"
+        echo -e "${RED}0 退出${NC}"
         read -p "选择: " c
 
         case $c in
@@ -289,7 +295,8 @@ docker_menu() {
                 echo "返回上一级..."
                 break   # ✅ 只退出当前 while
                 ;;
-            7)
+
+            0)
                 echo "退出脚本..."
                 exit 0
                 ;;
@@ -310,6 +317,7 @@ ssh_menu() {
         echo -e "${BLUE}3 查询状态${NC}"
         echo -e "${BLUE}4 重启 SSH${NC}"
         echo -e "${RED}5 返回${NC}"
+        echo -e "${RED}0 退出${NC}"
         read -p "选择: " c
 
         case $c in
@@ -318,21 +326,30 @@ ssh_menu() {
                 systemctl enable ssh
                 log "SSH 已安装并开机启动"
                 ;;
+
             2)
                 sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
                 sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
                 systemctl restart ssh
                 log "SSH 配置已写入"
                 ;;
+
             3)
                 systemctl status ssh
                 log "SSH 状态查询"
                 ;;
+
             4)
                 systemctl restart ssh
                 log "SSH 已重启"
                 ;;
+
             5)
+                echo "返回上一级..."
+                break   # ✅ 只退出当前 while
+                ;;
+
+            0)
                 echo "退出脚本..."
                 exit 0
                 ;;
@@ -350,6 +367,7 @@ go_menu() {
         print_header "${MAGENTA}===== GO 菜单 =====${NC}"
         echo -e "${MAGENTA}1 安装 GO${NC}"
         echo -e "${RED}2 返回${NC}"
+        echo -e "${RED}0 退出${NC}"
         read -p "选择: " c
 
         case $c in
@@ -358,7 +376,18 @@ go_menu() {
                 apt install -y golang
                 log "GO 已安装"
                 ;;
-            2) break ;;
+            2)
+                echo "返回上一级..."
+                break   # ✅ 只退出当前 while
+                ;;
+
+            0)
+                echo "退出脚本..."
+                exit 0
+                ;;
+            *)
+                echo "无效选项"
+                ;;
         esac
         pause
     done
@@ -373,6 +402,7 @@ service_menu() {
         echo -e "${CYAN}3 查询状态${NC}"
         echo -e "${CYAN}4 创建胖墩墩超级备份系统${NC}"
         echo -e "${RED}5 返回${NC}"
+        echo -e "${RED}0 退出${NC}"
         read -p "选择: " c
 
         case $c in
@@ -481,6 +511,11 @@ EOF
                 log "超级备份系统已启动: http://$(hostname -I | awk '{print $1}')/back_up"
                 ;;
             5)
+                echo "返回上一级..."
+                break   # ✅ 只退出当前 while
+                ;;
+
+            0)
                 echo "退出脚本..."
                 exit 0
                 ;;
