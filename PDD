@@ -217,7 +217,11 @@ docker_menu() {
         print_header "${YELLOW}===== Docker 菜单 =====${NC}"
         echo -e "${YELLOW}1 安装 Docker${NC}"
         echo -e "${YELLOW}2 重启 Docker${NC}"
-        echo -e "${RED}3 返回${NC}"
+        echo -e "${YELLOW}3 删除所有镜像+缓存+残留${NC}"
+        echo -e "${YELLOW}4 查询 Docker 状态${NC}"
+        echo -e "${YELLOW}5 删除安装脚本 get-docker.sh${NC}"
+        echo -e "${RED}6 返回${NC}"
+        echo -e "${RED}0 退出脚本${NC}"
         read -p "选择: " c
 
         case $c in
@@ -230,7 +234,34 @@ docker_menu() {
                 systemctl restart docker
                 log "Docker 已重启"
                 ;;
-            3) break ;;
+            3)
+                echo "⚠️ 即将删除所有 Docker 数据（容器/镜像/卷/缓存）"
+                read -p "确认执行? (y/n): " confirm
+                if [[ $confirm == "y" ]]; then
+                    docker system prune -a --volumes -f
+                    log "Docker 所有残留已清理"
+                else
+                    log "已取消"
+                fi
+                ;;
+            4)
+                systemctl status docker --no-pager
+                docker info 2>/dev/null
+                ;;
+            5)
+                rm -f get-docker.sh
+                log "get-docker.sh 已删除"
+                ;;
+            6)
+                break
+                ;;
+            0)
+                echo "退出脚本..."
+                exit 0
+                ;;
+            *)
+                echo "无效选项"
+                ;;
         esac
         pause
     done
