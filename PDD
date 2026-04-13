@@ -249,11 +249,6 @@ docker_menu() {
                 docker info 2>/dev/null
                 ;;
             5)
-                rm -f get-docker.sh
-                log "get-docker.sh 已删除"
-                ;;
-
-5)
  			    echo "⚠️ 即将彻底卸载 Docker（包含数据/镜像/配置/依赖）"
      			read -p "确认执行? (y/n): " confirm
  			    if [[ $confirm == "y" ]]; then
